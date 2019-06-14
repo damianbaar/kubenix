@@ -34,7 +34,7 @@ in stdenvNoCC.mkDerivation {
     # join multiple yaml files in jsonl file
     for file in ./resource-*.yaml
     do
-      remarshal -i $file -if yaml -of json >>resources.jsonl
+      (cat $file | tr -d "\t") | (remarshal -if yaml -of json >>resources.jsonl)
     done
 
     # convert jsonl file to json array, remove null values and write to $out
